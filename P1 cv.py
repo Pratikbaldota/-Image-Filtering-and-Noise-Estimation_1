@@ -22,18 +22,25 @@ class project1():
             rgb = cv2.imread(self.img_names[i], cv2.IMREAD_GRAYSCALE)
             cv2.imwrite(self.gray_path + str(i) + '.jpg', rgb)
     
-    def first_derivative(self):
+    def first_derivate(self):
         for i in range(1, len(self.img_names)):
             gray_prev = cv2.imread(self.gray_path + str(abs(1 - i)) + '.jpg')
             gray_curr = cv2.imread(self.gray_path + str(i) + '.jpg')
-            temp_derivative = cv2.subtract(gray_prev, gray_curr)
-            cv2.imwrite(self.temp_der_path + str(i) + '.jpg', temp_derivative)   
-            print(temp_derivative)
-            cv2.imshow("temp_derivative", temp_derivative)
+            temp_derivate = cv2.subtract(gray_prev, gray_curr)
+            cv2.imwrite(self.temp_der_path + str(i) + '.jpg', temp_derivate)   
+        print(temp_derivate)
+            cv2.imshow("temp_derivate", temp_derivate)
             cv2.waitKey(0)
             cv2.destroyAllWindows()
+            temp_derivate = gray_prev - gray_curr
+        for i in range(1,len(self.img_names)):
+            gray = cv2.imread(self.gray_path + str(i)+ '.jpg')
+            print("prev",abs(1-i),end=" ")
+            print("curr",i)
+            temp_derivate = cv2.subtract(gray[abs(1-i)],gray[i])
+            cv2.imwrite(self.temp_der_path + str(i)+ '.jpg',temp_derivate)  
         
-    def threethree_derivative(self):
+    def threethree_derivate(self):
         for i in range(1, len(self.img_names)):
             gray_prev = cv2.imread(self.gray_path + str(abs(1 - i)) + '.jpg')
             gray_curr = cv2.imread(self.gray_path + str(i) + '.jpg')
@@ -42,10 +49,20 @@ class project1():
             smooth_curr = cv2.blur(gray_curr, (3, 3))
             smooth_prev = cv2.blur(gray_prev, (3, 3))
             
-            temp_derivative = cv2.subtract(smooth_prev, smooth_curr)
-            cv2.imwrite(self.temp_der_path3 + str(i) + '.jpg', temp_derivative)
-    
-    def fivefive_derivative(self):
+            temp_derivate = cv2.subtract(smooth_prev, smooth_curr)
+            cv2.imwrite(self.temp_der_path3 + str(i) + '.jpg', temp_derivate)
+            cv2.imshow("temp_derivate", temp_derivate)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+            temp_derivate = gray_prev - gray_curr
+        for i in range(1,len(self.img_names)):
+            gray = cv2.imread(self.gray_path + str(i)+ '.jpg')
+            print("prev",abs(1-i),end=" ")
+            print("curr",i)
+            temp_derivate = cv2.subtract(gray[abs(1-i)],gray[i])
+            cv2.imwrite(self.temp_der_path + str(i)+ '.jpg',temp_derivate)  
+
+    def fivefive_derivate(self):
         for i in range(1, len(self.img_names)):
             gray_prev = cv2.imread(self.gray_path + str(abs(1 - i)) + '.jpg')
             gray_curr = cv2.imread(self.gray_path + str(i) + '.jpg')
@@ -54,21 +71,30 @@ class project1():
             smooth_curr = cv2.blur(gray_curr, (5, 5))
             smooth_prev = cv2.blur(gray_prev, (5, 5))
             
-            temp_derivative = cv2.subtract(smooth_prev, smooth_curr)
-            cv2.imwrite(self.temp_der_path5 + str(i) + '.jpg', temp_derivative)
-    
+            temp_derivate = cv2.subtract(smooth_prev, smooth_curr)
+            cv2.imwrite(self.temp_der_path5 + str(i) + '.jpg', temp_derivate)
+            cv2.imshow("temp_derivate", temp_derivate)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+            temp_derivate = gray_prev - gray_curr
+        for i in range(1,len(self.img_names)):
+            gray = cv2.imread(self.gray_path + str(i)+ '.jpg')
+            print("prev",abs(1-i),end=" ")
+            print("curr",i)
+            temp_derivate = cv2.subtract(gray[abs(1-i)],gray[i])
+            cv2.imwrite(self.temp_der_path + str(i)+ '.jpg',temp_derivate)   
     def apply_gaussian_filter(self, sigma):
         for i in range(1, len(self.img_names)):
             gray_curr = cv2.imread(self.gray_path + str(i) + '.jpg')
             kernel = cv2.getGaussianKernel(3 * sigma, sigma)
             filtered_img = cv2.filter2D(gray_curr, -1, kernel * kernel.T)
             cv2.imwrite(self.temp_der_path6 + str(i) + '.jpg', filtered_img)
-    
+
 
 if __name__ == "__main__":
 
-    office_imgs = "//home/pratik/Desktop/cv/Office(1)/Office"
-    red_chair_imgs = "/hhome/pratik/Desktop/cv/RedChair/RedChair"
+    office_imgs = "/home/pratik/Desktop/cv/Office(1)/Office"
+    red_chair_imgs = "/home/pratik/Desktop/cv/RedChair/RedChair"
     motion_detect = project1(office_imgs)
     motion_detect.read_gray_scale()
     motion_detect.first_derivate()
